@@ -1,0 +1,41 @@
+{
+  "name": "boxpacker",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w -ws _ ",
+    "clean": "bsb -clean-world",
+    "server": "moduleserve ./ --port 8000",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "keywords": [
+    "BuckleScript",
+    "ReasonReact",
+    "reason-react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bs-css": "^11.0.0",
+    "bs-storybook": "^0.3.0",
+    "bs-uuid": "^0.3.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-icons": "^3.9.0",
+    "reason-react": ">=0.7.0",
+    "storybook": "^5.3.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@storybook/addon-actions": "^5.3.9",
+    "@storybook/addon-knobs": "^5.3.9",
+    "@storybook/addon-links": "^5.3.9",
+    "@storybook/addons": "^5.3.9",
+    "@storybook/react": "^5.3.9",
+    "babel-loader": "^8.0.6",
+    "bs-platform": "^7.0.1",
+    "moduleserve": "^0.9.0"
+  }
+}
