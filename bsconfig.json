@@ -17,8 +17,7 @@
   "bs-dependencies": [
     "reason-react",
     "bs-storybook",
-    "bs-css",
-    "bs-uuid"
+    "bs-css"
   ],
   "refmt": 3
 }

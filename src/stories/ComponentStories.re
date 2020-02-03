@@ -2,7 +2,7 @@ open BsStorybook.Story;
 open BsStorybook.Action;
 open BsStorybook.Knobs;
 
-let _module = [%bs.raw "module"];
+let _module = [%bs.raw "module"] /*   )*/;
 
 storiesOf("Input", _module)
 ->addDecorator(withKnobs)
@@ -23,5 +23,4 @@ storiesOf("Entity", _module)
       let name = text(~label="Name", ~defaultValue="Towels", ());
       let onEdit = (_: string) => action("Entity edited");
       <Entity edit name onEdit />;
-    })
-  );
+    }));

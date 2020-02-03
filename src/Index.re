@@ -1,13 +1,14 @@
-module App = {
-  let entities: list(AppState.entity) = [
-    {id: AppState.uuid(), name: "item one"},
-    {id: AppState.uuid(), name: "item two"},
-    {id: AppState.uuid(), name: "item three"},
-  ];
+open AppState;
+open Utils;
 
+let initialState: state = {boxes: [{id: nanoid(), name: "one"}], items: []};
+
+module App = {
   [@react.component]
-  let addEntity = (name: string) => Js.log(name);
-  let editEntity = (name: string) => Js.log(name);
-  let make = _ => <Panel addEntity editEntity entities />;
+  let make = _ => {
+    let (state, dispatch) = React.useReducer(reducer, initialState);
+    <Boxes state dispatch />;
+  };
 };
+
 ReactDOMRe.renderToElementWithId(<App />, "root");
