@@ -25,11 +25,12 @@ type action =
  | EditBoxName(uuid, string);
  */
 
-let reducer = (state: state, action: action): state => {
+let reducer = (state, action) => {
   switch (action) {
-  | AddBox(name) =>
-    let newBox = {id: nanoid(), name};
-    {...state, boxes: [newBox, ...state.boxes]};
+  | AddBox(name) => {
+      ...state,
+      boxes: state.boxes @ [{id: uuid(name), name}],
+    }
   /*
       | AddItem(name, box) =>
         let newItem = {id: uuid(), name, box};

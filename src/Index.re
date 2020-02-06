@@ -1,7 +1,14 @@
 open AppState;
 open Utils;
 
-let initialState: state = {boxes: [{id: nanoid(), name: "one"}], items: []};
+let initialState: state = {
+  boxes: [
+    {id: uuid("one"), name: "one"},
+    {id: uuid("two"), name: "two"},
+    {id: uuid("three"), name: "three"},
+  ],
+  items: [],
+};
 
 module App = {
   [@react.component]

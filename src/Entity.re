@@ -3,7 +3,7 @@ open Utils;
 module Styles = {
   open Css;
 
-  let container = style([padding(px(2)), border(px(1), solid, black)]);
+  let container = style([2->px->padding, 1->px->borderBottom(solid, black)]);
 };
 
 [@react.component]

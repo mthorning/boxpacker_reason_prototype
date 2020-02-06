@@ -1,14 +1,20 @@
 module Styles = {
   open Css;
-  let container = style([position(relative)]);
-
+  let container = style([15->px->padding, position(relative)]);
+  let input =
+    style([
+      5->px->borderRadius,
+      35->px->height,
+      100.00->`percent->width,
+      boxSizing(borderBox),
+    ]);
   let closeIcon = visible =>
     style([
+      2->px->top,
+      4->px->right,
       position(absolute),
-      top(px(10)),
-      left(px(170)),
-      display(visible ? block : none),
       cursor(`pointer),
+      display(visible ? block : none),
     ]);
 };
 
@@ -36,8 +42,8 @@ let make = (~placeholder="", ~onSubmit) => {
 
   let onClick = _ => setValue(_ => "");
 
-  <div>
-    <input placeholder onChange onKeyDown value />
+  <div className=Styles.container>
+    <input className=Styles.input placeholder onChange onKeyDown value />
     <CloseIcon className={Styles.closeIcon(value !== "")} onClick />
   </div>;
 };
