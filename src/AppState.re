@@ -15,13 +15,15 @@ type item = {
 
 type state = {
   boxes: list(box),
+  selectedBox: option(uuid),
   items: list(item),
 };
 
 type action =
-  | AddBox(string);
+  | AddBox(string)
+  | ToggleBoxSelection(uuid)
+  | AddItem(string);
 /*
- | AddItem(string, uuid)
  | EditBoxName(uuid, string);
  */
 
@@ -31,10 +33,22 @@ let reducer = (state, action) => {
       ...state,
       boxes: state.boxes @ [{id: uuid(name), name}],
     }
+  | ToggleBoxSelection(id) =>
+    switch (state.selectedBox) {
+    | Some(selectedBox) => {
+        ...state,
+        selectedBox: id === selectedBox ? None : Some(id),
+      }
+    | None => {...state, selectedBox: Some(id)}
+    }
+  | AddItem(name) =>
+    switch (state.selectedBox) {
+    | Some(box) =>
+      let newItem = {id: uuid(name), box, name};
+      {...state, items: [newItem, ...state.items]};
+    | None => state
+    }
   /*
-      | AddItem(name, box) =>
-        let newItem = {id: uuid(), name, box};
-        {...state, items: [newItem, ...state.items]};
    | EditBoxName(id, name) =>
      let box: box = List.find(box => box.id === id, state.boxes);
      let replacement = {...box, name};
@@ -45,6 +59,6 @@ let reducer = (state, action) => {
          ...state.boxes->Belt.List.keep(box => box.id !== id),
        ],
      };
-    */
+     */
   };
 };

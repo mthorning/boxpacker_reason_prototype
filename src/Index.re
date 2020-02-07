@@ -8,6 +8,7 @@ let initialState: state = {
     {id: uuid("three"), name: "three"},
   ],
   items: [],
+  selectedBox: None,
 };
 
 module App = {
