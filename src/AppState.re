@@ -2,63 +2,84 @@ open Utils;
 
 type uuid = string;
 
-type box = {
+type eType =
+  | Box
+  | Item(uuid);
+
+type entity = {
+  eType,
   id: uuid,
   name: string,
 };
 
-type item = {
-  id: uuid,
-  box: uuid,
-  name: string,
-};
+type selection =
+  | Nothing
+  | Selected(uuid)
+  | Editing(uuid);
 
 type state = {
-  boxes: list(box),
-  selectedBox: option(uuid),
-  items: list(item),
+  entities: list(entity),
+  selectedBox: selection,
+  selectedItem: selection,
 };
 
 type action =
   | AddBox(string)
-  | ToggleBoxSelection(uuid)
-  | AddItem(string);
-/*
- | EditBoxName(uuid, string);
- */
+  | ToggleBoxSelection(selection)
+  | EditBoxName(uuid, string)
+  | ToggleItemSelection(selection)
+  | AddItem(string)
+  | EditItemName(uuid, string);
+
+let toggleSelection = (selectedEntity, selection) => {
+  switch (selectedEntity, selection) {
+  | (Editing(selectedId), Editing(clickedId))
+  | (Selected(selectedId), Selected(clickedId)) =>
+    selectedId === clickedId ? Nothing : selection
+  | _ => selection
+  };
+};
+
+let editName = (entities, id, name) =>
+  entities->Belt.List.map(entity => {
+    entity.id === id ? {...entity, name} : entity
+  });
 
 let reducer = (state, action) => {
   switch (action) {
   | AddBox(name) => {
       ...state,
-      boxes: state.boxes @ [{id: uuid(name), name}],
+      entities: [{id: uuid(name), name, eType: Box}, ...state.entities],
     }
-  | ToggleBoxSelection(id) =>
-    switch (state.selectedBox) {
-    | Some(selectedBox) => {
-        ...state,
-        selectedBox: id === selectedBox ? None : Some(id),
-      }
-    | None => {...state, selectedBox: Some(id)}
+  | ToggleBoxSelection(selection) => {
+      ...state,
+      selectedBox: toggleSelection(state.selectedBox, selection),
+    }
+  | EditBoxName(id, name) => {
+      ...state,
+      entities: editName(state.entities, id, name),
+      selectedBox: Selected(id),
     }
   | AddItem(name) =>
     switch (state.selectedBox) {
-    | Some(box) =>
-      let newItem = {id: uuid(name), box, name};
-      {...state, items: [newItem, ...state.items]};
-    | None => state
+    | Selected(box)
+    | Editing(box) => {
+        ...state,
+        entities: [
+          {id: uuid(name), name, eType: Item(box)},
+          ...state.entities,
+        ],
+      }
+    | Nothing => state
     }
-  /*
-   | EditBoxName(id, name) =>
-     let box: box = List.find(box => box.id === id, state.boxes);
-     let replacement = {...box, name};
-     {
-       ...state,
-       boxes: [
-         replacement,
-         ...state.boxes->Belt.List.keep(box => box.id !== id),
-       ],
-     };
-     */
+  | ToggleItemSelection(selection) => {
+      ...state,
+      selectedItem: toggleSelection(state.selectedItem, selection),
+    }
+  | EditItemName(id, name) => {
+      ...state,
+      entities: editName(state.entities, id, name),
+      selectedItem: Selected(id),
+    }
   };
 };

@@ -1,35 +1,25 @@
-open Utils;
 open AppState;
-
-module Styles = {
-  open Css;
-
-  let container =
-    style([
-      5->px->borderRadius,
-      300->px->width,
-      5->px->padding,
-      1->px->border(solid, black),
-    ]);
-  let list = style([0->px->padding]);
-  let listItem = style([listStyleType(none), 2->px->padding]);
-};
 
 [@react.component]
 let make = (~state, ~dispatch) => {
+  let onEdit = (id, name) => dispatch(EditItemName(id, name));
   let onSubmit = name => dispatch(AddItem(name));
-  <div className=Styles.container>
-    <InputBox onSubmit />
-    <ul className=Styles.list>
-      {state.items
-       ->mapElements(item => {
-           /*
-            let onEdit = name => dispatch(EditBoxName(box.id, name));
-            */
-           <li key={item.id} className=Styles.listItem>
-             <Entity name={item.name} onEdit={name => name} />
-           </li>
-         })}
-    </ul>
-  </div>;
+  let clickHandler = selection => dispatch(ToggleItemSelection(selection));
+  let entities =
+    state.entities
+    ->Belt.List.keep(entity => {
+        switch (entity.eType, state.selectedBox) {
+        | (Box, _) => false
+        | (_, Nothing) => false
+        | (Item(boxId), Editing(selectedBox))
+        | (Item(boxId), Selected(selectedBox)) => boxId === selectedBox
+        }
+      });
+  <List
+    onEdit
+    onSubmit
+    clickHandler
+    entities
+    selectedEntity={state.selectedItem}
+  />;
 };
