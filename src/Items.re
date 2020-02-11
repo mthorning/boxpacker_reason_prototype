@@ -30,12 +30,18 @@ let make = (~state, ~dispatch) => {
         }
       });
 
-  <List
-    onDeleteClick
+  let closeModal = _ => dispatch(ToggleItemSelection(Nothing));
+  let getItem = (id, _) =>
+    state.entities |> List.find(entity => entity.id === id);
+
+  <EntityList
     onEdit
     onSubmit
     clickHandler
     entities
+    displayOnEntityClick={id =>
+      <ItemModal closeModal getItem={getItem(id)} />
+    }
     selectedEntity={state.selectedItem}
   />;
 };

@@ -56,8 +56,8 @@ let make =
       ~onSubmit,
       ~clickHandler,
       ~entities,
+      ~displayOnEntityClick,
       ~selectedEntity,
-      ~onDeleteClick,
     ) => {
   let onClick = doubleClickHandler(clickHandler);
   <div className=Styles.container>
@@ -76,8 +76,9 @@ let make =
            className=Styles.li>
            <Entity
              name={entity.name}
-             onEdit={onEdit(entity.id)}
-             onDeleteClick={onDeleteClick(entity.id)}
+             id={entity.id}
+             onEdit
+             displayOnEntityClick
              edit
              selected
            />

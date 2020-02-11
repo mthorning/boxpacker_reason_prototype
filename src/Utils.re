@@ -9,3 +9,10 @@ let uuid = name => {
     name ++ "-" ++ Js.Date.now()->int_of_float->Random.int->string_of_int;
   id;
 };
+
+/* Icons */
+module DeleteIcon = {
+  [@bs.module "react-icons/ai"] [@react.component]
+  external make: (~onClick: ReactEvent.Mouse.t => unit) => React.element =
+    "AiOutlineDelete";
+};

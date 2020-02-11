@@ -10,8 +10,8 @@ let initialState: state = {
     {id: uuid("boxThree"), name: "three", eType: Box},
     itemOne,
   ],
-  selectedBox: Nothing,
-  selectedItem: Nothing,
+  selectedBox: Selected(boxOne.id),
+  selectedItem: Selected(itemOne.id),
 };
 
 module Styles = {

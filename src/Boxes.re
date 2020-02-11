@@ -1,4 +1,5 @@
 open AppState;
+open Utils;
 
 type delete =
   | Delete(uuid, string)
@@ -38,7 +39,8 @@ let make = (~state, ~dispatch) => {
 
   let (showDelete, setShowDelete) = React.useState(_ => NoDelete);
 
-  let onDeleteClick = (id, _) => {
+  let onDeleteClick = (id, event) => {
+    ReactEvent.Mouse.stopPropagation(event);
     let itemCount = itemCount(state.entities, id);
     switch (itemCount) {
     | 0 => dispatch(DeleteBox(id))
@@ -80,12 +82,12 @@ let make = (~state, ~dispatch) => {
        />
      | NoDelete => React.null
      }}
-    <List
+    <EntityList
       onEdit
-      onDeleteClick
       onSubmit
       clickHandler
       entities=boxes
+      displayOnEntityClick={id => <DeleteIcon onClick={onDeleteClick(id)} />}
       selectedEntity={state.selectedBox}
     />
   </>;
