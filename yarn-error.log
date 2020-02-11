@@ -1,0 +1,64 @@
+Arguments: 
+  /home/mthorning/.nvm/versions/node/v12.13.1/bin/node /home/mthorning/.nvm/versions/node/v12.13.1/bin/yarn install
+
+PATH: 
+  /home/mthorning/.cargo/bin:/home/mthorning/.nvm/versions/node/v12.13.1/bin:/home/mthorning/.cargo/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/mthorning/bin:/home/mthorning/.fzf/bin:/home/mthorning/bin
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  12.13.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/mthorning/Documents/code/boxpacker/package.json: Unexpected token } in JSON at position 679
+      at JSON.parse (<anonymous>)
+      at /home/mthorning/.nvm/versions/node/v12.13.1/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/home/mthorning/.nvm/versions/node/v12.13.1/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /home/mthorning/.nvm/versions/node/v12.13.1/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "boxpacker",
+    "version": "0.1.0",
+    "scripts": {
+      "build": "bsb -make-world",
+      "start": "bsb -make-world -w -ws _ ",
+      "clean": "bsb -clean-world",
+      "server": "moduleserve ./ --port 8000",
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "storybook": "start-storybook -p 6006",
+      "build-storybook": "build-storybook"
+    },
+    "keywords": [
+      "BuckleScript",
+      "ReasonReact",
+      "reason-react"
+    ],
+    "author": "Matt Thorning",
+    "license": "MIT",
+    "dependencies": {
+      "bs-css": "^11.0.0",
+      "bs-storybook": "^0.3.0",
+      "react": "^16.8.1",
+      "react-dom": "^16.8.1",
+      "react-icons": "^3.9.0",
+      "reason-react": ">=0.7.0",
+    },
+    "devDependencies": {
+      "@babel/core": "^7.8.4",
+      "babel-loader": "^8.0.6",
+      "bs-platform": "^7.0.1",
+      "moduleserve": "^0.9.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

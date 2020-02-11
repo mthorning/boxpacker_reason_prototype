@@ -16,7 +16,6 @@
   "namespace": true,
   "bs-dependencies": [
     "reason-react",
-    "bs-storybook",
     "bs-css"
   ],
   "refmt": 3

@@ -50,7 +50,15 @@ let doubleClickHandler = clickHandler => {
 };
 
 [@react.component]
-let make = (~onEdit, ~onSubmit, ~clickHandler, ~entities, ~selectedEntity) => {
+let make =
+    (
+      ~onEdit,
+      ~onSubmit,
+      ~clickHandler,
+      ~entities,
+      ~selectedEntity,
+      ~onDeleteClick,
+    ) => {
   let onClick = doubleClickHandler(clickHandler);
   <div className=Styles.container>
     <div className=Styles.inputContainer> <InputBox onSubmit /> </div>
@@ -69,6 +77,7 @@ let make = (~onEdit, ~onSubmit, ~clickHandler, ~entities, ~selectedEntity) => {
            <Entity
              name={entity.name}
              onEdit={onEdit(entity.id)}
+             onDeleteClick={onDeleteClick(entity.id)}
              edit
              selected
            />

@@ -22,6 +22,12 @@ module InputStyles = {
     ]);
 };
 
+module DeleteIcon = {
+  [@bs.module "react-icons/ai"] [@react.component]
+  external make: (~onClick: ReactEvent.Mouse.t => unit) => React.element =
+    "AiOutlineDelete";
+};
+
 module Styles = {
   open Css;
 
@@ -29,11 +35,26 @@ module Styles = {
     let base = [2->px->padding, 1->px->borderBottom(solid, black)];
     style(selected ? Theme.selectionColor @ base : base);
   };
+  let entity =
+    style([
+      display(`flex),
+      justifyContent(spaceBetween),
+      alignItems(center),
+    ]);
 };
 
 [@react.component]
-let make = (~edit, ~selected, ~onEdit as onSubmit, ~name) => {
+let make = (~edit, ~selected, ~onEdit as onSubmit, ~name, ~onDeleteClick) => {
+  let deleteClickHandler = event => {
+    ReactEvent.Mouse.stopPropagation(event);
+    onDeleteClick(event);
+  };
   <div className={Styles.container(selected)}>
-    {edit ? <InputBox onSubmit /> : <span> name->s </span>}
+    {edit
+       ? <InputBox onSubmit />
+       : <div className=Styles.entity>
+           name->s
+           {selected ? <DeleteIcon onClick=deleteClickHandler /> : React.null}
+         </div>}
   </div>;
 };

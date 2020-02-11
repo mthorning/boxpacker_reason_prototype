@@ -23,8 +23,7 @@ let make = (~placeholder="", ~onSubmit) => {
 
   let onKeyDown = event =>
     if (event->ReactEvent.Keyboard.keyCode === 13 && value !== "") {
-      onSubmit(value);
-      setValue(_ => "");
+      onSubmit(value, () => setValue(_ => ""));
     };
 
   let stop = event => ReactEvent.Mouse.stopPropagation(event);

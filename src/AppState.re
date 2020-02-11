@@ -1,5 +1,3 @@
-open Utils;
-
 type uuid = string;
 
 type eType =
@@ -27,9 +25,11 @@ type action =
   | AddBox(string)
   | ToggleBoxSelection(selection)
   | EditBoxName(uuid, string)
+  | DeleteBox(uuid)
   | ToggleItemSelection(selection)
   | AddItem(string)
-  | EditItemName(uuid, string);
+  | EditItemName(uuid, string)
+  | DeleteItem(uuid);
 
 let toggleSelection = (selectedEntity, selection) => {
   switch (selectedEntity, selection) {
@@ -49,7 +49,10 @@ let reducer = (state, action) => {
   switch (action) {
   | AddBox(name) => {
       ...state,
-      entities: [{id: uuid(name), name, eType: Box}, ...state.entities],
+      entities: [
+        {id: Utils.uuid(name), name, eType: Box},
+        ...state.entities,
+      ],
     }
   | ToggleBoxSelection(selection) => {
       ...state,
@@ -60,13 +63,24 @@ let reducer = (state, action) => {
       entities: editName(state.entities, id, name),
       selectedBox: Selected(id),
     }
+  | DeleteBox(id) => {
+      ...state,
+      entities:
+        state.entities
+        ->Belt.List.keep(entity => {
+            switch (entity.eType) {
+            | Box => entity.id !== id
+            | Item(box) => box !== id
+            }
+          }),
+    }
   | AddItem(name) =>
     switch (state.selectedBox) {
     | Selected(box)
     | Editing(box) => {
         ...state,
         entities: [
-          {id: uuid(name), name, eType: Item(box)},
+          {id: Utils.uuid(name), name, eType: Item(box)},
           ...state.entities,
         ],
       }
@@ -80,6 +94,10 @@ let reducer = (state, action) => {
       ...state,
       entities: editName(state.entities, id, name),
       selectedItem: Selected(id),
+    }
+  | DeleteItem(id) => {
+      ...state,
+      entities: state.entities->Belt.List.keep(entity => entity.id !== id),
     }
   };
 };
