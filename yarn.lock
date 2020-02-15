@@ -254,9 +254,9 @@ bs-css@^11.0.0:
     emotion "^10.0.7"
 
 bs-platform@^7.0.1:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.1.0.tgz#72b52148b1c4be7f878969e6e2afd1bfab068cdd"
-  integrity sha512-XUeZf1nGzmsVymG89j5L8G9YNDHl0J/5iDGExXA7a4RKxnbvP2TselBZAzFeEH4rs3gG01b7yKt+h2pm7yh7Ww==
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.1.1.tgz#ed4032de7ab15158c61d8994680a05393e3ddd74"
+  integrity sha512-ckZHR3J+yxyEKXOBHX8+hfzWG2XX5BxhQ4Iw9lulHFGYdAm9Ep9LgKkIah7G6RYADLmVfTxFE48igvY3kkkl+g==
 
 bs-storybook@^0.3.0:
   version "0.3.0"
@@ -330,9 +330,9 @@ create-emotion@^10.0.27:
     "@emotion/utils" "0.11.3"
 
 csstype@^2.5.7:
-  version "2.6.8"
-  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.8.tgz#0fb6fc2417ffd2816a418c9336da74d7f07db431"
-  integrity sha512-msVS9qTuMT5zwAGCVm4mxfrZ18BNc6Csd0oJAtiFMZ1FAx1CCvy2+5MDmYoix63LM/6NDbNtodCiGYGmFgO0dA==
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.9.tgz#05141d0cd557a56b8891394c1911c40c8a98d098"
+  integrity sha512-xz39Sb4+OaTsULgUERcCk+TJj8ylkL4aSVDQiX/ksxbELSqwkgt4d4RD7fovIdgJGSuNYqwZEiVjYY5l0ask+Q==
 
 debug@2.6.9:
   version "2.6.9"

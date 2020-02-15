@@ -4,7 +4,12 @@ open Utils;
 module Styles = {
   open Css;
 
-  let container = style([display(`flex), flexDirection(column)]);
+  let container =
+    style([
+      display(`flex),
+      flexDirection(column),
+      100.00->`percent->height,
+    ]);
   let formItem =
     style([
       display(`flex),

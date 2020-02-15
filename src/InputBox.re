@@ -27,8 +27,9 @@ let make = (~placeholder="", ~onSubmit) => {
     };
 
   let stop = event => ReactEvent.Mouse.stopPropagation(event);
+  let onBlur = _ => Js.log("blur");
 
   <div onClick=stop className=Styles.container>
-    <input type_="search" placeholder onChange onKeyDown value />
+    <input type_="search" placeholder onChange onKeyDown value onBlur />
   </div>;
 };
